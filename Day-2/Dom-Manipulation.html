@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <input type="radio" id="num1" name="gender" value="male">
+    <input type="radio" id="num2" name="gender" value="female"> -->
+    <div id="placeholderDiv">
+        <input type="text" id="num1" class="input" name="num">
+        <input type="text" id="num2" class="input" name="num">
+    </div>
+    
+
+    <button onclick="sum()">Sum</button>
+    <button onclick="addNewField()">add New Field</button>
+    <div id="result">Result: </div>
+    <!-- <button onclick="detectRadioSelected()">detect radio</button> -->
+    <!-- <button onclick="addToLocalStorage()">Add to local storage</button> -->
+    
+    <script>
+
+         //input[name="${radioGroupName}"]:checked
+         //const radioElementSelected = document.querySelector('input[name="gender"]:checked');
+
+        function sum(){
+            const localStorageNumber = localStorage.getItem("Number");
+            let numberResult = parseInt(localStorageNumber == null ? '0' : localStorageNumber);
+
+            //const textFields = document.getElementsByTagName('input');
+            //const textFields = document.getElementsByClassName('input');
+            //const textFields = document.getElementsByClassName('input');
+            const textFields = document.querySelectorAll('input[name="num"]');
+
+            textFields.forEach(element =>{
+                numberResult += element.value == ''? 0:parseInt(element.value);
+            })
+
+            //  const number1 = document.getElementById("num1");
+            //  const number2 = document.getElementById("num2");
+            const divResult = document.getElementById("result");
+
+            divResult.textContent = numberResult;
+            localStorage.setItem('Number', numberResult);
+            
+        }
+
+      
+        
+
+        let i = 1;   
+        function addNewField(){
+            
+            //const htmlElement = `<input type="radio" id='number${i}' name="xValue" value="xValue-${i}">`;
+            const htmlElement = `<input type="text" id='number${i}' name="num" >`;
+            
+            
+            const element3 = document.getElementById("placeholderDiv");
+
+            element3.innerHTML += htmlElement
+            i++;
+
+        }
+
+        function detectRadioSelected(){
+            const radioElementSelected = document.querySelector('input[name="xValue"]:checked');
+             const element3 = document.getElementById("result");
+
+            if(radioElementSelected){
+                 console.log(radioElementSelected);
+                 element3.textContent = `value selected: ${radioElementSelected.value}` ;
+            }
+            else{
+                console.log("No selected gender value")
+            }
+        }
+
+        // function addToLocalStorage(){
+        //     localStorage.
+        // }
+    </script>
+    
+</body>
+</html>

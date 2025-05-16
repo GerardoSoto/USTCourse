@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>  
+    //GLOBAL SCOPE
+    var globalScope = 1;
+
+    //fooScope(); HOISTIN
+
+    function fooScope(){
+       //LOCAL SCOPE
+
+       //var local = 2; this is local, because has the VAR
+        local = 2; // this is global, not contains the VAR
+       //console.log(globalScope);
+
+       //BLOCK SCOPE
+       for(let i = 0; i <3; i++){
+           console.log(i);
+       }
+
+      
+
+    }
+
+
+    fooScope();
+
+    // console.log(globalScope);
+
+    // console.log(local);
+    
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

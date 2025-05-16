@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const book1 = {
+                title: 'Learn JS',
+                price: 100,
+                borrow: function () {
+                    console.log('title of the book is ' + this.title);
+                },
+
+                cost: function () {
+                    console.log('the price is ' + this.price)
+                },
+
+                return: function () {
+                    console.log('the price is ' + this.price)
+                    this.borrow();
+                }
+            }
+
+
+
+        book1.borrow();
+        book1.cost();
+        book1.return();
+
+
+        let {title,price} = book1
+
+        console.log(title );
+        title = 'Learn React';
+        console.log(title );
+
+
+
+
+    </script>
+</body>
+</html>

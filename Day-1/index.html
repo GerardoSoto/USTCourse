@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    const a = 1;
+    //a= 2 not working beacause it is a reassignmet 
+    var b = 5;
+    const numbers = [1,2,11,3, -1]
+
+    numbers.sort((a, b) => a - b); // la funcion returna un numbero positivo o negativo (a -b) ascendente,  (b - a) descendente
+    //numbers.push(5);
+    console.log(numbers);
+
+    // const newArray = numbers.map((number) => {
+    //   if(number % 2 == 0)
+    //    return number +10; //callback
+    //   }
+    
+    //  );
+
+      const newArray = numbers.map(number =>  number%2 == 0 ? number+10:number );
+
+    console.log("newArray" + newArray);
+
+    function ClickEvent(event){ //event handler -> it is a simple function, this can be linked to multiple HTML fields
+      console.log(event);
+      console.log("Clicked " + event.target.name);
+      return 120;  // Any retruned value is lost 
+    } 
+
+    
+
+    //
+    // const result = numbers.find((params) => { 
+    //   //se ejecuta hasat que encuentra la priemra occurencia y sastfaja la condicion 
+    //   // (hasta que encuentra el primer true)
+    //   console.log(params)
+    //   return params > 1;
+    //  });
+    //console.log(numbers);
+    //console.log(result);
+  </script>
+  
+  <input type="text" onclick="ClickEvent(event)" name="tex1">
+  <button type="button" onclick="ClickEvent(event)" name="button1" > Button 1</button>
+  <button type="button" onclick="ClickEvent(event)" name="button2" > Button 2</button>
+</body>
+</html>

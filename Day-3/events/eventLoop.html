@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // setTimeout(function(){
+        //     console.log('function 1');
+
+        //     // while(true){
+
+        //     // }
+        // },2000)
+
+        // setTimeout(function(){
+        //     console.log('function 2');
+        // },3000)
+
+            // Sincrónico
+            function funcionSincrona() {
+                // Código que tarda tiempo en ejecutarse
+                console.log("Ejecutando tarea sincrónica");
+            }
+
+            console.log("Antes de la tarea sincrónica");
+            funcionSincrona();
+            console.log("Después de la tarea sincrónica");
+
+            // Asíncrono (con setTimeout)
+            function funcionAsincrona() {
+                setTimeout(function () {
+                    console.log("Ejecutando tarea asincrónica");
+                }, 2000); // Esperar 2 segundos
+            }
+
+            console.log("Antes de la tarea asincrónica");
+            funcionAsincrona();
+            console.log("Después de la tarea asincrónica");
+        </script>
+    </body>
+    
+    </html>

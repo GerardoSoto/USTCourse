@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- *EVENT BUBBLING  & CAPTURING -->
+<body onclick="bodyFunc()">
+    
+    <div onclick="handlerOnDiv(event)">
+        <button>click</button>
+        <button>click</button>
+        <button>click</button>
+        <button>click</button>
+        <button>click</button>
+        <button>click</button>
+    </div>
+
+    <!-- * EVENT DELEGATION is the reverse of EVENT BUBBLING -->
+    <script>
+        function bodyFunc(){
+            console.log('handler at body');
+        }
+
+        function handlerOnDiv(event){
+            console.log('Div handler');
+            console.log(event.pageX,event.pageY);
+            console.log(event.target);
+            event.stopPropagation(); // detiene la propagacion del evento a los elementos padres
+        }
+
+        
+    </script>
+</body>
+</html>

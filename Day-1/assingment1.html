@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <input type="text" name="text1">
+  </div>
+
+  <div>
+    <input type="text" name="text1">
+  </div>
+
+  <div>
+    <input type="radio" name="gender" > Male
+    <input type="radio" name="gender"> Female
+  </div>
+
+  <div>
+    <label for="cars">Choose a car: </label>
+    <select name="cars" id="cars" onchange="print(event)">
+      <option value=""></option>
+      <option value="volvo">volvo</option>
+      <option value="nissan">nissan</option>
+      <option value="honda">honda</option>
+      <option value="ford">ford</option>
+    </select>
+    <label id="label"></label>
+
+  </div>
+
+
+  <script>
+
+  const $element = document.getElementById("label");
+    //Arrow function 
+    // const print = event => console.log(event.target.value);
+
+    function print(event){
+      console.log(event.target.value);
+     
+      $element.textContent = event.target.value;
+    }
+  </script>
+
+</body>
+
+</html>

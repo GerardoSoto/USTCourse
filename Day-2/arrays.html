@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const numbers = [3,1,6,3,7,-1];
+
+        //Esto retorna un nuevo array
+        const newArray = numbers.map(function(element){
+            return element + 2;
+        })
+        // console.log(numbers);
+        // console.log(newArray);
+
+
+        //Esto retorna un valor numerico
+        const sum = numbers.reduce(function(previousValue,element, currentIndex){
+            console.log(previousValue, element, currentIndex);
+            if(currentIndex % 2 == 1)
+                return previousValue + element;
+            else
+            return previousValue;
+        });
+        //console.log(sum);
+
+        //Esto no retorna nada
+        numbers.forEach(element => {
+            console.log(element);
+        })
+    </script>
+</body>
+</html>

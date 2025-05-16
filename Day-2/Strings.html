@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const s1 = "UST"; //sera almacenado en el STRING POOL, permaneceran siempre disponibles
+        const s2 = new String("UST"); //eStos objects seran recolectados por el GARBAGE COLLECTOR
+        const s3 = new String("UST");
+
+        console.log(s1 == s2);
+        console.log(s3 == s2);
+        console.log(s3 == s1);
+
+        function reverseString(str) {
+            let newString = "";
+            for (let i = str.length - 1; i >= 0; i--) {
+                newString += str[i];
+            }
+            return newString;
+        }
+
+        console.log(reverseString(s3));
+
+    </script>
+    
+
+    
+</body>
+</html>
