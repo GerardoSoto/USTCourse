@@ -9,12 +9,12 @@
     integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
 
-<body onload="fetchProducts()" ;>
+<body >
   <div class="container text-center ">
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">product management</a>
+        <a class="navbar-brand" href="#">Product Management</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -46,8 +46,8 @@
             </li> -->
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button id="searchBtn" onclick="searchProducts()" class="btn btn-outline-success" type="submit" >Search</button>
           </form>
         </div>
       </div>
@@ -66,7 +66,7 @@
               <input id="price" class="form-control" type="number" name="Price" />
             </div>
             <div class="mb-3">
-              <button id="submit" class="btn btn-primary submit">submit</button>
+              <button id="submit" onclick="createOrEditProduct()" class="btn btn-primary submit">submit</button>
             </div>
           </div>
         </form>
@@ -90,7 +90,7 @@
 
   </div>
   <script src="demo.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script> -->
 </body>
 
 </html>
