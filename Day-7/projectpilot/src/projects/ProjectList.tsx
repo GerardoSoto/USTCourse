@@ -23,6 +23,10 @@ function ProjectList({ projects }: ProjectListProps) {
     console.log(project);
     setProjectBeingEdited(project);
   }
+  const cancelEditing  = () =>{
+    console.log("canceling..." + projectBeingEdited); //! How to read the current state?
+    setProjectBeingEdited({});
+  }
 
   return (
     <div className="row">
@@ -32,7 +36,7 @@ function ProjectList({ projects }: ProjectListProps) {
           <ProjectForm /> */}
            { 
             project === projectBeingEdited ? (
-              <ProjectForm />
+              <ProjectForm onCancel={cancelEditing}/>
             ) :
             (
               <ProjectCard project={project}  onEdit={handleEdit}/>
