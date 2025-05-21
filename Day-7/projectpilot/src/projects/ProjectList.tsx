@@ -5,9 +5,10 @@ import ProjectForm from './ProjectForm';
 
 interface ProjectListProps {
   projects: Project[];
+  onSave: (project: Project) => void;
 }
 
-function ProjectList({ projects }: ProjectListProps) {
+function ProjectList({ projects, onSave }: ProjectListProps) {
   // return <pre>{JSON.stringify(projects, null, ' ')}</pre>;
   // return (
   //   <ul>
@@ -24,7 +25,7 @@ function ProjectList({ projects }: ProjectListProps) {
     setProjectBeingEdited(project);
   }
   const cancelEditing  = () =>{
-    console.log("canceling..." + projectBeingEdited); //! How to read the current state?
+    console.log("canceling project edit: " , projectBeingEdited); 
     setProjectBeingEdited({});
   }
 
@@ -36,7 +37,7 @@ function ProjectList({ projects }: ProjectListProps) {
           <ProjectForm /> */}
            { 
             project === projectBeingEdited ? (
-              <ProjectForm onCancel={cancelEditing}/>
+              <ProjectForm onCancel={cancelEditing} onSave={onSave}/>
             ) :
             (
               <ProjectCard project={project}  onEdit={handleEdit}/>
