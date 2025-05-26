@@ -22,7 +22,7 @@ const newProject = new Project();
     projectAPI.post(project)
     .then((response) => {
       console.log(response);
-      alert(response);
+      alert(response.message);
     });
   }
 

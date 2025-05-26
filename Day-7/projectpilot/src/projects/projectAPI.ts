@@ -35,6 +35,7 @@ function parseJSON(response: Response) {
   return response.json();
 }
 
+// eslint-disable-next-line
 function parseText(response: Response) {
   return response.text();
 }
@@ -80,7 +81,7 @@ const projectAPI = {
       }
     })
     .then(checkStatus)
-    .then(parseText)
+    .then(parseJSON)
     .catch((error: TypeError) => {
         console.log('log client error ' + error);
         throw new Error(
