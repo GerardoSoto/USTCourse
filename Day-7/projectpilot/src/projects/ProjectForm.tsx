@@ -27,8 +27,7 @@ function ProjectForm({ onSave, onCancel, project: initialProject }: ProjectFormP
       return;
     }
       
-    onSave(project)
-    console.log("Project updated.....");
+    onSave(project);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

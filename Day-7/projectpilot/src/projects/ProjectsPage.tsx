@@ -34,7 +34,7 @@ function ProjectsPage() {
     async function loadProjects() {
       setLoading(true);
       try {
-        const data = await projectAPI.get(1);
+        const data = await projectAPI.get();
         setError('');
         setProjects(data);
       }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Project } from './Project';
-const baseUrl = 'http://localhost:4000';
+//const baseUrl = 'http://localhost:4000';
+const baseUrl = 'http://localhost:3000/api';
 const url = `${baseUrl}/projects`;
 
 function translateStatusToErrorMessage(status: number) {
@@ -34,6 +35,10 @@ function parseJSON(response: Response) {
   return response.json();
 }
 
+function parseText(response: Response) {
+  return response.text();
+}
+
 // eslint-disable-next-line
 function delay(ms: number) {
   return function (x: any): Promise<any> {
@@ -51,8 +56,10 @@ function convertToProjectModel(item: any): Project {
 }
 
 const projectAPI = {
-  get(page = 1, limit = 20) {
-    return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
+  // get(page = 1, limit = 20) {
+    // return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
+  get() {
+    return fetch(`${url}`)
       .then(delay(1200))
       .then(checkStatus)
       .then(parseJSON)
@@ -61,6 +68,23 @@ const projectAPI = {
         console.log('log client error ' + error);
         throw new Error(
           'There was an error retrieving the projects. Please try again.'
+        );
+      });
+  },
+  post(project:Project){
+    return fetch(`${baseUrl}/project`,{
+      method:'post',
+      body: JSON.stringify(project),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(checkStatus)
+    .then(parseText)
+    .catch((error: TypeError) => {
+        console.log('log client error ' + error);
+        throw new Error(
+          'There was an error creating the project. Please try again.'
         );
       });
   },

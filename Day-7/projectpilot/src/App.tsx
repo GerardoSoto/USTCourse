@@ -5,6 +5,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router";
 import ProjectsPage from "./projects/ProjectsPage";
 import HomePage from "./Home/HomePage";
 import ProjectPage from "./projects/ProjectPage";
+import NewProjectPage from "./projects/NewProjectPage";
 
 function App() {
   // return (
@@ -30,6 +31,9 @@ function App() {
         <NavLink to="/projects" className="button rounded">
           Projects
         </NavLink>
+        <NavLink to="/project" className="button rounded">
+         New Project
+        </NavLink>
       </header>
 
       <div className="container">
@@ -37,6 +41,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/projects/:id" element={<ProjectPage />} />
+          <Route path="/project" element={<NewProjectPage />} />
         </Routes>
       </div>
     </BrowserRouter>
