@@ -12,8 +12,9 @@ interface ProjectFormProps {
 
 
 
-function ProjectForm({ onSave, onCancel, onDelete, project: initialProject, isEdit }: ProjectFormProps) {
+function ProjectForm({ onSave, onCancel, onDelete, project: initialProject , isEdit }: ProjectFormProps) {
 
+  const [active, setActive] = useState(true);
   const [project, setProject] = useState(initialProject);
   const [errors, setErrors] = useState({
     name: '',
@@ -24,11 +25,13 @@ function ProjectForm({ onSave, onCancel, onDelete, project: initialProject, isEd
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     //onSave(new Project({name: 'Updated Project'}));
+    console.log(project);
     if (!isValid()){
       console.log("is not a valid form");
       return;
     }
       
+    console.log("saving...." + project);
     onSave(project);
   }
 
@@ -65,6 +68,8 @@ function ProjectForm({ onSave, onCancel, onDelete, project: initialProject, isEd
       return updatedProject;
     });
 
+    setActive(false);
+
     setErrors(() => validate(updatedProject));
   }
 
@@ -73,7 +78,7 @@ function ProjectForm({ onSave, onCancel, onDelete, project: initialProject, isEd
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let errors: any = { name: '', description: '', budget: '' };
 
-    if (project.name.length === 0) {
+    if (project.name.length === 0 ) {
       errors.name = 'Name is required';
     }
 
@@ -155,7 +160,7 @@ function ProjectForm({ onSave, onCancel, onDelete, project: initialProject, isEd
         onChange={handleChange} />
 
       <div className="input-group">
-        <button className="primary bordered medium">Save</button>
+        <button className="primary bordered medium" disabled={active} >Save</button>
         <span />
         
         {

@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res, ValidationPipe} from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateProjectDto } from './DTO/CreateProjectDto';
 import { UpdateProjectDto } from './DTO/UpdateProjectDto';
 import Project from './Model/Project';
+import { validate, validateOrReject } from '@nestjs/class-validator';
 
 @Controller('api')
 export class AppController {
@@ -12,7 +13,7 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
+d
   @Get('projects')
   getProjects(@Res() response): IProject[] {
     try {
@@ -27,7 +28,7 @@ export class AppController {
     }
   }
 
-  
+
   @Get('projects/:id')
   getProject(@Res() response, @Param('id') projectId) {
     try {
@@ -52,8 +53,7 @@ export class AppController {
 
   @Post('project')
   //@HttpCode(200)
-  async create(@Res() response, @Body() createProjectDto: CreateProjectDto) {
-    //console.log(createProjectDto);
+  async create(@Res() response, @Body(new ValidationPipe()) createProjectDto: CreateProjectDto) {
     try {
       let project = new Project(
         createProjectDto.name,
@@ -80,7 +80,7 @@ export class AppController {
   }
 
   @Put('projects/:id')
-  async updateProject(@Res() response, @Param('id') projectId, @Body() updatedProjectDto: UpdateProjectDto) {
+  async updateProject(@Res() response, @Param('id') projectId, @Body(new ValidationPipe()) updatedProjectDto: UpdateProjectDto) {
     try {
       const existingProject = await this.appService.updateProject(
         projectId,
