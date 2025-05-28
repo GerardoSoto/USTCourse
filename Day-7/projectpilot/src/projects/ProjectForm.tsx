@@ -3,14 +3,16 @@ import { useState, type SyntheticEvent } from "react";
 import { Project } from "./Project";
 
 interface ProjectFormProps {
+  isEdit: boolean;
   project: Project
   onSave: (project: Project) => void;
   onCancel: () => void;
+  onDelete: (project: Project) => void;
 }
 
 
 
-function ProjectForm({ onSave, onCancel, project: initialProject }: ProjectFormProps) {
+function ProjectForm({ onSave, onCancel, onDelete, project: initialProject, isEdit }: ProjectFormProps) {
 
   const [project, setProject] = useState(initialProject);
   const [errors, setErrors] = useState({
@@ -28,6 +30,12 @@ function ProjectForm({ onSave, onCancel, project: initialProject }: ProjectFormP
     }
       
     onSave(project);
+  }
+
+  const handleDelete = (event: SyntheticEvent) => {
+    event.preventDefault();
+    //! Maybe some validations here
+    onDelete(project);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -149,9 +157,21 @@ function ProjectForm({ onSave, onCancel, project: initialProject }: ProjectFormP
       <div className="input-group">
         <button className="primary bordered medium">Save</button>
         <span />
-        <button type="button" className="bordered medium" onClick={onCancel}>
+        
+        {
+          isEdit && (<>
+            <button type="button" className="bordered medium" onClick={onCancel}>
+              cancel
+            </button>
+
+            <button type="button" className="bordered medium" onClick={handleDelete}>
+              Delete
+            </button>
+          </>
+          )}
+        {/* <button type="button" className="bordered medium" onClick={onCancel}>
           cancel
-        </button>
+        </button> */}
       </div>
     </form>
   );

@@ -30,8 +30,8 @@ function ProjectsPage() {
   //  }, []);
 
   // Approach 2: using async/await
-  useEffect(() => {
-    async function loadProjects() {
+
+  async function loadProjects() {
       setLoading(true);
       try {
         const data = await projectAPI.get();
@@ -46,6 +46,8 @@ function ProjectsPage() {
         setLoading(false);
       }
     }
+
+  useEffect(() => {
     loadProjects();
   }, []);
 
@@ -73,6 +75,15 @@ function ProjectsPage() {
      });
   }
 
+  const deleteProject = async  (project: Project)=> {
+    projectAPI
+      .delete(project)
+      .then((response) =>  {
+        alert(`${response.message}`);
+        loadProjects();
+      })
+  }
+
   return <>
     <h1>Projects</h1>
     {/* <pre>{JSON.stringify(MOCK_PROJECTS,null,' ')}</pre> */}
@@ -92,7 +103,7 @@ function ProjectsPage() {
       )}
 
 
-    <ProjectList onSave={saveProject} projects={projects} />
+    <ProjectList onSave={saveProject} onDelete={deleteProject} projects={projects} />
 
       {loading && (
         <div className="center-page">

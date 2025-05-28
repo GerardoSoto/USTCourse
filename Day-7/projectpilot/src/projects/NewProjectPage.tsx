@@ -12,7 +12,7 @@ const newProject = new Project();
   
  const [projectBeingEdited, setProjectBeingEdited] = useState({});
 
- const cancelEditing  = () =>{
+ const cancelEditingFake  = () =>{
     console.log("canceling project edit: " , projectBeingEdited); 
     setProjectBeingEdited({});
   }
@@ -26,9 +26,13 @@ const newProject = new Project();
     });
   }
 
+  const deleteProjectFake = () => {
+    console.log("deleting....")
+  }
+
   return (
     <div className="Row">
-      <ProjectForm onCancel={cancelEditing} onSave={saveNewProject} project={newProject}></ProjectForm>
+      <ProjectForm onCancel={cancelEditingFake} onDelete={deleteProjectFake} onSave={saveNewProject} project={newProject} isEdit={false}></ProjectForm>
     </div>
   );
 }
