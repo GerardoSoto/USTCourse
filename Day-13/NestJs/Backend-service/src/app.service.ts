@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import Project from './Model/Project';
+import { UpdateProjectDto } from './DTO/UpdateProjectDto';
 
 @Injectable()
 export class AppService {
@@ -9,7 +11,7 @@ export class AppService {
 
       this.projects = [
       {
-      id: 1,
+      id: "1",
       name: "Johnson - Kutch",
       description: "Fully-configurable intermediate framework. Ullam occaecati libero laudantium nihil voluptas omnis qui modi qui.",
       imageUrl: "/assets/placeimg_500_300_arch4.jpg",
@@ -19,7 +21,7 @@ export class AppService {
       isActive: false
     },
     {
-      id: 2,
+      id: "2",
       name: "Dillesik LLCs",
       description: "Re-contextualized dynamic moratorium. Aut nulla soluta numquam qui dolor architecto et facere dolores.",
       imageUrl: "/assets/placeimg_500_300_arch12.jpg",
@@ -29,7 +31,7 @@ export class AppService {
       isActive: true
     },
     {
-      id: 3,
+      id: "3",
       name: "Purdy, Keeling and Smithams",
       description: "Innovative 6th generation model. Perferendis libero qui iusto et ullam cum sint molestias vel.",
       imageUrl: "/assets/placeimg_500_300_arch5.jpg",
@@ -46,6 +48,11 @@ export class AppService {
     return 'Hello World!';
   }
 
+  getProjectById(projectId: string): IProject | undefined{
+    const project = this.projects.find( project => project.id == projectId );
+    return project;
+  }
+
   getProjects(): IProject[]{
     return this.projects;
   }
@@ -53,5 +60,34 @@ export class AppService {
   addProject(project: IProject): string{
     this.projects.push(project);
     return "project added";
+  }
+
+  updateProject(projectId: string, updatedProject: UpdateProjectDto): IProject | undefined{
+    const projectToUpdate = this.getProjectById(projectId);
+
+    if(projectToUpdate){
+        projectToUpdate.name = updatedProject.name? updatedProject.name : "";
+        projectToUpdate.description = updatedProject.description? updatedProject.description : "";
+        projectToUpdate.budget = updatedProject.budget? updatedProject.budget : 0;
+        projectToUpdate.isActive = updatedProject.isActive? updatedProject.isActive: false;
+    }
+    else{
+      console.log(`Project with ID ${projectId} not found.`);
+    }
+    return projectToUpdate;
+  }
+
+  deleteProject(projectId: string): IProject | undefined{
+    const projectToDeleteIndex = this.projects.findIndex(project => project.id === projectId);
+
+    if(projectToDeleteIndex !== -1){
+      const projectDeleted = this.projects.splice(projectToDeleteIndex,1);
+      return projectDeleted[0];
+    }
+    else{
+      console.log(`Project with ID ${projectId} not found.`);
+    }
+
+    return undefined;
   }
 }

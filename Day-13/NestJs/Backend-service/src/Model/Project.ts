@@ -1,5 +1,5 @@
 export default class implements IProject {
-  id: number | undefined;
+  id: string;
   name: string;
   description: string;
   imageUrl: string;
@@ -11,6 +11,7 @@ export default class implements IProject {
    *
    */
   constructor(name:string, desceription:string, imageUrl: string, contractTypeId: number, budget: number, isActive: boolean) {
+    this.id = crypto.randomUUID();
     this.name = name;
     this.description = desceription;
     this.imageUrl = imageUrl;

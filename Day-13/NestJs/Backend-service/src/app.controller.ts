@@ -1,14 +1,7 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res} from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateProjectDto } from './DTO/CreateProjectDto';
+import { UpdateProjectDto } from './DTO/UpdateProjectDto';
 import Project from './Model/Project';
 
 @Controller('api')
@@ -21,9 +14,39 @@ export class AppController {
   }
 
   @Get('projects')
-  getProjects(): IProject[] {
-    console.log(this.appService.getProjects());
-    return this.appService.getProjects();
+  getProjects(@Res() response): IProject[] {
+    try {
+      const projects = this.appService.getProjects();
+
+      return response.status(HttpStatus.OK).json({
+        message: 'All projects data found successfully',
+        projects,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
+  }
+
+  @Get('projects/:id')
+  getProject(@Res() response, @Param('id') projectId) {
+    try {
+      const project = this.appService.getProjectById(projectId);
+      if (project) {
+        return response.status(HttpStatus.OK).json({
+          message: 'Project found successfully',
+          project,
+        });
+      }
+      else{
+        return response.status(HttpStatus.NOT_FOUND).json({
+          statusCode: 404,
+          message: 'Error: Project not found!',
+          error: 'Bad Request',
+        });
+      }
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
   }
 
   @Post('project')
@@ -49,11 +72,59 @@ export class AppController {
     } catch (err) {
       return response.status(HttpStatus.BAD_REQUEST).json({
         statusCode: 400,
-        message: 'Error: Student not created!',
+        message: 'Error: Project not created!',
         error: 'Bad Request',
       });
     }
+  }
 
-    //return 'New Project Crated';
+  @Put('projects/:id')
+  async updateProject(@Res() response, @Param('id') projectId, @Body() updatedProjectDto: UpdateProjectDto) {
+    try {
+      const existingProject = await this.appService.updateProject(
+        projectId,
+        updatedProjectDto,
+      );
+
+      if (existingProject) {
+        return response.status(HttpStatus.OK).json({
+          message: 'Project has been successfully updated',
+          existingProject,
+        });
+      } else {
+        return response.status(HttpStatus.BAD_REQUEST).json({
+          statusCode: 400,
+          message: 'Error: Project not updated!',
+          error: 'Bad Request',
+        });
+      }
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
+  }
+
+  @Delete('projects/:id')
+  async deleteProject(@Res() response, @Param('id') projectId){
+    try{
+      const projectDeleted = this.appService.deleteProject(projectId);
+
+      if(projectDeleted){
+        return response.status(HttpStatus.OK).json({
+                message: 'Project deleted successfully',
+                projectDeleted,
+            });
+      }
+      else{
+         return response.status(HttpStatus.NOT_FOUND).json({
+          statusCode: 404,
+          message: 'Error: Project not found!',
+          error: 'Bad Request',
+        });
+      }
+
+    }
+    catch(err){
+      return response.status(err.status).json(err.response);
+    }
   }
 }

@@ -1,5 +1,5 @@
-interface IProject{
-  id: number | undefined;
+interface IProject {
+  id: string;
   name: string;
   description: string;
   imageUrl: string;
