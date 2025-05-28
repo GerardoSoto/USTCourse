@@ -23,6 +23,9 @@ const newProject = new Project();
     .then((response) => {
       console.log(response);
       alert(response.message);
+    })
+    .catch((err) => {
+      alert(err);
     });
   }
 
