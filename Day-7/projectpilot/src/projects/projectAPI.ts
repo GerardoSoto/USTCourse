@@ -35,10 +35,9 @@ function parseJSON(response: Response) {
   return response.json();
 }
 
-// eslint-disable-next-line
-function parseText(response: Response) {
-  return response.text();
-}
+// function parseText(response: Response) {
+//   return response.text();
+// }
 
 // eslint-disable-next-line
 function delay(ms: number) {
@@ -47,8 +46,8 @@ function delay(ms: number) {
   };
 }
 
-function convertToProjectModels(data: any[]): Project[] {
-  const projects: Project[] = data.map(convertToProjectModel);
+function convertToProjectModels(data: any): Project[] {
+  const projects: Project[] = data.projects.map(convertToProjectModel);
   return projects;
 }
 

@@ -27,6 +27,7 @@ export class AppController {
     }
   }
 
+  
   @Get('projects/:id')
   getProject(@Res() response, @Param('id') projectId) {
     try {

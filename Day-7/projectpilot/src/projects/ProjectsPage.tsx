@@ -59,9 +59,10 @@ function ProjectsPage() {
 
    projectAPI
      .put(project)
-     .then((updatedProject) => {
+     .then((response) => {
+      alert(response.message);
        const updatedProjects = projects.map((p: Project) => {
-         return p.id === project.id ? new Project(updatedProject) : p;
+         return p.id === project.id ? new Project(response.existingProject) : p;
        });
        setProjects(updatedProjects);
      })
