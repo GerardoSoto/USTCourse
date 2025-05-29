@@ -38,7 +38,12 @@ function ProjectForm({ onSave, onCancel, onDelete, project: initialProject , isE
   const handleDelete = (event: SyntheticEvent) => {
     event.preventDefault();
     //! Maybe some validations here
-    onDelete(project);
+    let text = "Are you sure you want to delete this project?";
+    if (confirm(text) == true) {
+      onDelete(project);
+    } 
+
+    
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
