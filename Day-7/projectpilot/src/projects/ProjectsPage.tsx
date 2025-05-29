@@ -36,6 +36,7 @@ function ProjectsPage() {
       try {
         const data = await projectAPI.get();
         setError('');
+        console.log('Parsing data from Backens' + data)
         setProjects(data);
       }
        catch (e) {
@@ -64,7 +65,7 @@ function ProjectsPage() {
      .then((response) => {
       alert(response.message);
        const updatedProjects = projects.map((p: Project) => {
-         return p.id === project.id ? new Project(response.existingProject) : p;
+         return p._id === project._id ? new Project(response.existingProject) : p;
        });
        setProjects(updatedProjects);
      })

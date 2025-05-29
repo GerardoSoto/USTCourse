@@ -47,6 +47,7 @@ function delay(ms: number) {
 }
 
 function convertToProjectModels(data: any): Project[] {
+  //console.log('Parsing data from Backens' + data)
   const projects: Project[] = data.projects.map(convertToProjectModel);
   return projects;
 }
@@ -89,7 +90,7 @@ const projectAPI = {
       });
   },
   put(project: Project) {
-    return fetch(`${url}/${project.id}`, {
+    return fetch(`${url}/${project._id}`, {
       method: 'PUT',
       body: JSON.stringify(project),
       headers: {
@@ -112,7 +113,7 @@ const projectAPI = {
       .then(data => convertToProjectModel(data.project));
   },
   delete(project: Project){
-    return fetch(`${url}/${project.id}`, {
+    return fetch(`${url}/${project._id}`, {
       method: 'DELETE',
       body: JSON.stringify(project),
       headers: {
