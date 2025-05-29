@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res, ValidationPipe} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res, UsePipes, ValidationPipe} from '@nestjs/common';
 //import { AppService } from './app.service';
 import { CreateProjectDto } from './DTO/CreateProjectDto';
 import { UpdateProjectDto } from './DTO/UpdateProjectDto';
 import Project from './Model/Project';
 import { AppServiceDB } from './AppDB.service';
+import { TrimPipe } from './CustomPipes/trimPipe';
 
 @Controller('api')
 export class AppController {
@@ -52,11 +53,12 @@ export class AppController {
   }
 
   @Post('project')
+  @UsePipes(new TrimPipe())
   //@HttpCode(200)
   async create(@Res() response, @Body() createProjectDto: CreateProjectDto) {
     try {
       let project = new Project(
-        createProjectDto.name.trim(),
+        createProjectDto.name,
         createProjectDto.description,
         '/assets/placeimg_500_300_arch4.jpg',
         1,
@@ -80,6 +82,7 @@ export class AppController {
   }
 
   @Put('projects/:id')
+  @UsePipes(new TrimPipe())
   async updateProject(@Res() response, @Param('id') projectId, @Body() updatedProjectDto: UpdateProjectDto) {
     try {
       const existingProject = await this.appService.updateProject(projectId, updatedProjectDto);

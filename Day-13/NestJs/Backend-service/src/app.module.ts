@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import {ProjectSchema } from './Schema/project.schema'
 import { AppServiceDB } from './AppDB.service';
+import { LoggerMiddleware } from './Middleware/loggerMiddleware';
 
 @Module({
   imports: [MongooseModule.forRoot('mongodb://localhost:27017',{dbName: 'projectdb'}),
@@ -12,4 +13,11 @@ import { AppServiceDB } from './AppDB.service';
   controllers: [AppController],
   providers: [AppService, AppServiceDB],
 })
-export class AppModule {}
+export class AppModule implements NestModule
+{
+  configure(consumer: MiddlewareConsumer) {
+      consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('api');
+  }
+}
