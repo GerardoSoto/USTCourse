@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsNumber, IsString, MaxLength, Validate } from "@nestjs/class-validator";
 import { GreaterThanZero, IsNotBlank } from "src/CustomValidations/CustomValidations";
 
+//npm install class-validator class-transformer
 
 export class CreateProjectDto{
   @IsString()

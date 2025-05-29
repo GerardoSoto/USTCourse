@@ -69,7 +69,6 @@ function ProjectForm({ onSave, onCancel, onDelete, project: initialProject , isE
     });
 
     setActive(false);
-
     setErrors(() => validate(updatedProject));
   }
 

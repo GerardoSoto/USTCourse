@@ -57,7 +57,7 @@ export class AppService {
     return this.projects;
   }
 
-  addProject(project: IProject): string{
+  createProject(project: IProject): string{
     this.projects.push(project);
     return "project added";
   }
