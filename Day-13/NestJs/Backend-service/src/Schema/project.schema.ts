@@ -25,4 +25,4 @@ export class Project{
   isActive: boolean;
 }
 
-export const StudentSchema = SchemaFactory.createForClass(Project);
+export const ProjectSchema = SchemaFactory.createForClass(Project);

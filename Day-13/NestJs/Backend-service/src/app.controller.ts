@@ -15,9 +15,9 @@ export class AppController {
   }
 
   @Get('projects')
-  getProjects(@Res() response): IProject[] {
+  async getProjects(@Res() response) {
     try {
-      const projects = this.appService.getProjects();
+      const projects = await this.appService.getProjects();
 
       return response.status(HttpStatus.OK).json({
         message: 'All projects data found successfully',
@@ -30,9 +30,9 @@ export class AppController {
 
 
   @Get('projects/:id')
-  getProject(@Res() response, @Param('id') projectId) {
+  async getProject(@Res() response, @Param('id') projectId) {
     try {
-      const project = this.appService.getProjectById(projectId);
+      const project = await this.appService.getProjectById(projectId);
       //if (project) {
         return response.status(HttpStatus.OK).json({
           message: 'Project found successfully',
@@ -56,7 +56,7 @@ export class AppController {
   async create(@Res() response, @Body() createProjectDto: CreateProjectDto) {
     try {
       let project = new Project(
-        createProjectDto.name,
+        createProjectDto.name.trim(),
         createProjectDto.description,
         '/assets/placeimg_500_300_arch4.jpg',
         1,
@@ -64,11 +64,11 @@ export class AppController {
         createProjectDto.isActive,
       );
 
-      this.appService.createProject(project);
+      const newProject = await this.appService.createProject(project);
 
       response.status(HttpStatus.CREATED).json({
         message: 'Project has been created successfully',
-        project,
+        newProject,
       });
     } catch (err) {
       return response.status(HttpStatus.BAD_REQUEST).json({
@@ -104,7 +104,7 @@ export class AppController {
   @Delete('projects/:id')
   async deleteProject(@Res() response, @Param('id') projectId){
     try{
-      const projectDeleted = this.appService.deleteProject(projectId);
+      const projectDeleted = await this.appService.deleteProject(projectId);
 
       //if(projectDeleted){
         return response.status(HttpStatus.OK).json({

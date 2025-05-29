@@ -11,7 +11,7 @@ export class AppService {
 
       this.projects = [
       {
-      id: "1",
+      _id: "1",
       name: "Johnson - Kutch",
       description: "Fully-configurable intermediate framework. Ullam occaecati libero laudantium nihil voluptas omnis qui modi qui.",
       imageUrl: "/assets/placeimg_500_300_arch4.jpg",
@@ -21,7 +21,7 @@ export class AppService {
       isActive: false
     },
     {
-      id: "2",
+      _id: "2",
       name: "Dillesik LLCs",
       description: "Re-contextualized dynamic moratorium. Aut nulla soluta numquam qui dolor architecto et facere dolores.",
       imageUrl: "/assets/placeimg_500_300_arch12.jpg",
@@ -31,7 +31,7 @@ export class AppService {
       isActive: true
     },
     {
-      id: "3",
+      _id: "3",
       name: "Purdy, Keeling and Smithams",
       description: "Innovative 6th generation model. Perferendis libero qui iusto et ullam cum sint molestias vel.",
       imageUrl: "/assets/placeimg_500_300_arch5.jpg",
@@ -49,7 +49,7 @@ export class AppService {
   }
 
   getProjectById(projectId: string): IProject | undefined{
-    const project = this.projects.find( project => project.id == projectId );
+    const project = this.projects.find( project => project._id == projectId );
     return project;
   }
 
@@ -78,7 +78,7 @@ export class AppService {
   }
 
   deleteProject(projectId: string): IProject | undefined{
-    const projectToDeleteIndex = this.projects.findIndex(project => project.id === projectId);
+    const projectToDeleteIndex = this.projects.findIndex(project => project._id === projectId);
 
     if(projectToDeleteIndex !== -1){
       const projectDeleted = this.projects.splice(projectToDeleteIndex,1);
