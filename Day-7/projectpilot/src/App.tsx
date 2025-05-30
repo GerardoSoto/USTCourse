@@ -6,6 +6,7 @@ import ProjectsPage from "./projects/ProjectsPage";
 import HomePage from "./Home/HomePage";
 import ProjectPage from "./projects/ProjectPage";
 import NewProjectPage from "./projects/NewProjectPage";
+import { Container } from "@mui/material";
 
 function App() {
   // return (
@@ -19,7 +20,9 @@ function App() {
   //  );
 
   return (
-    <BrowserRouter>
+    // Material UI
+    <Container fixed>
+      <BrowserRouter>
       <header className="sticky">
         <span className="logo">
           <img src="/assets/logo-3.svg" alt="logo" width="49" height="99" />
@@ -45,6 +48,8 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+    </Container>
+    
   );
 }
 
