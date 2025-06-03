@@ -1,7 +1,9 @@
+import { Auth } from "../Auth/Auth";
+import type { IAuth } from "../Auth/IAuth";
 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const API_URL = "http://localhost:3000/auth/";
+const API_URL = "http://localhost:3000/auth";
 
 function translateStatusToErrorMessage(status: number) {
   switch (status) {
@@ -34,6 +36,14 @@ function parseJSON(response: Response) {
   return response.json();
 }
 
+function convertToAuthtModel(item: any): IAuth {
+  return new Auth(item);
+}
+
+function saveToLocalStorage(user: any):IAuth{
+  localStorage.setItem("user",JSON.stringify(user));
+  return user;
+}
 
 
 const authServiceAPI = {
@@ -50,6 +60,8 @@ const authServiceAPI = {
     })
     .then(checkStatus)    
     .then(parseJSON)
+    .then(convertToAuthtModel)
+    .then(saveToLocalStorage)
     .catch((error: TypeError) => {
         console.log('log client error ' + error);
         throw new Error(
@@ -59,13 +71,20 @@ const authServiceAPI = {
 
   },
   logout(){
-
+    //Todo: Call to backend service to delete the token
+    localStorage.removeItem("user");
+    
   },
   register(){
 
   },
   getCurrentUser(){
+    const currentUser = localStorage.getItem('user');
 
+    if(currentUser){
+      return JSON.parse(currentUser);
+    }
+    
   }
 };
 

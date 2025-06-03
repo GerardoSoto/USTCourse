@@ -1,8 +1,9 @@
 import { useState, type SyntheticEvent } from "react";
 import { authServiceAPI } from "../services/auth.service";
+import type { IAuth } from "../Auth/IAuth";
 
 interface LoginProps {
-  onLoginSuccess: (token: string) => void;
+  onLoginSuccess: (auth : IAuth) => void;
   onLoginError: (error: string) => void;
 }
 
