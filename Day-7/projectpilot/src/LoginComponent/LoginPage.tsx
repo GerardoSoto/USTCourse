@@ -22,17 +22,6 @@ function LoginPage({ onLoginSuccess, onLoginError }: LoginProps) {
     setErrorMessage(null);
 
     try {
-      // const response = await new Promise<string>((resolve, reject) => {
-      //   setTimeout(() => {
-      //     if (username === 'user' && password === 'password') {
-      //       resolve('fake-auth-token-123'); // Simulate successful login
-      //     } else {
-      //       reject('Invalid username or password'); // Simulate failed login
-      //     }
-      //   }, 1500); // Simulate network delay
-      // });
-
-
       const response = await authServiceAPI.login(username, password);
       if (response instanceof Auth)
         onLoginSuccess(response);
@@ -49,8 +38,6 @@ function LoginPage({ onLoginSuccess, onLoginError }: LoginProps) {
       setLoading(false);
     }
   };
-
-
 
 
   return (
