@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import authHeader from '../services/auth-header';
 import { Project } from './Project';
 //const baseUrl = 'http://localhost:4000';
 const baseUrl = 'http://localhost:3000/api';
@@ -59,8 +60,15 @@ function convertToProjectModel(item: any): Project {
 const projectAPI = {
   // get(page = 1, limit = 20) {
     // return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
+  // get() {
+  //   return fetch(`${url}`, { headers:{
+  //     authorization: authHeader()
+  //   } 
   get() {
-    return fetch(`${url}`)
+    return fetch(`${url}`, { headers: {
+      Authorization: authHeader()
+    }
+  })
       .then(delay(600))
       .then(checkStatus)
       .then(parseJSON)
@@ -77,7 +85,8 @@ const projectAPI = {
       method:'post',
       body: JSON.stringify(project),
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: authHeader()
       }
     })
     .then(checkStatus)
@@ -94,7 +103,8 @@ const projectAPI = {
       method: 'PUT',
       body: JSON.stringify(project),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: authHeader()
       }
     })
       .then(checkStatus)
@@ -107,7 +117,10 @@ const projectAPI = {
       });
   },
   find(id: string | undefined) {
-    return fetch(`${url}/${id}`)
+    return fetch(`${url}/${id}`,{ headers: {
+      Authorization: authHeader()
+    }
+  })
       .then(checkStatus)
       .then(parseJSON)
       .then(data => convertToProjectModel(data.project));
@@ -117,7 +130,8 @@ const projectAPI = {
       method: 'DELETE',
       body: JSON.stringify(project),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: authHeader()
       }
     })
     .then(checkStatus)

@@ -1,11 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res, UsePipes, ValidationPipe} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res, UseGuards, UsePipes, ValidationPipe} from '@nestjs/common';
 //import { AppService } from './app.service';
 import { CreateProjectDto } from './DTO/CreateProjectDto';
 import { UpdateProjectDto } from './DTO/UpdateProjectDto';
 import Project from './Model/Project';
 import { AppServiceDB } from './AppDB.service';
 import { TrimPipe } from './CustomPipes/trimPipe';
+import { AccessTokenGuard } from './common/guards/gaurd.access_token';
 
+@UseGuards(AccessTokenGuard)
 @Controller('api')
 export class AppController {
   constructor(private readonly appService: AppServiceDB) {}
