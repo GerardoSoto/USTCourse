@@ -1,14 +1,16 @@
 import { useState, type SyntheticEvent } from "react";
 import { authServiceAPI } from "../services/auth.service";
 import type { IAuth } from "../Auth/IAuth";
+import { Auth } from "../Auth/Auth";
+import { LoginErroMessage } from "../Auth/logginErrorMessage";
 
 interface LoginProps {
-  onLoginSuccess: (auth : IAuth) => void;
+  onLoginSuccess: (auth: IAuth) => void;
   onLoginError: (error: string) => void;
 }
 
-function LoginPage({onLoginSuccess, onLoginError} : LoginProps){
-  
+function LoginPage({ onLoginSuccess, onLoginError }: LoginProps) {
+
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,10 +33,15 @@ function LoginPage({onLoginSuccess, onLoginError} : LoginProps){
       // });
 
 
-      const response = await authServiceAPI.login(username,password);
-
-
-      onLoginSuccess(response);
+      const response = await authServiceAPI.login(username, password);
+      if (response instanceof Auth)
+        onLoginSuccess(response);
+      else
+        if (response instanceof LoginErroMessage){
+          setErrorMessage(response.message);
+          onLoginError(response.message)
+        }
+          
     } catch (error) {
       setErrorMessage(error as string);
       onLoginError(error as string);
@@ -46,8 +53,10 @@ function LoginPage({onLoginSuccess, onLoginError} : LoginProps){
 
 
 
- return (
-  <div className="login-container">
+  return (
+
+
+    <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
