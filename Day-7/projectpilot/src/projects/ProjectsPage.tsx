@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 // import { MOCK_PROJECTS } from "./MockProjects";
 import { projectAPI } from "./projectAPI";
 import ProjectList from "./ProjectList";
@@ -9,6 +9,7 @@ function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Approach 1: using promise then
   //  useEffect(() => {
@@ -34,10 +35,16 @@ function ProjectsPage() {
   async function loadProjects() {
       setLoading(true);
       try {
-        const data = await projectAPI.get();
+        const data = await projectAPI.get(currentPage);
         setError('');
         console.log('Parsing data from Backens' + data)
-        setProjects(data);
+
+        if(currentPage === 1){
+          setProjects(data);
+        } else {
+          setProjects((projects) => [...projects,...data]);
+        }
+        
       }
        catch (e) {
         if (e instanceof Error) {
@@ -50,7 +57,7 @@ function ProjectsPage() {
 
   useEffect(() => {
     loadProjects();
-  }, []);
+  }, [currentPage]);
 
   const saveProject = (project: Project) => {
     //console.log('Saving Project: ', project);
@@ -85,6 +92,10 @@ function ProjectsPage() {
       })
   }
 
+  const handleMoreClick = () => {
+    setCurrentPage((currentPage) => currentPage + 1);
+  }
+
   return <>
     <h1>Projects</h1>
     {/* <pre>{JSON.stringify(MOCK_PROJECTS,null,' ')}</pre> */}
@@ -105,6 +116,18 @@ function ProjectsPage() {
 
 
     <ProjectList onSave={saveProject} onDelete={deleteProject} projects={projects} />
+
+      {!loading && !error && (
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="button-group fluid">
+              <button className="button default" onClick={handleMoreClick}>
+                More...
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {loading && (
         <div className="center-page">

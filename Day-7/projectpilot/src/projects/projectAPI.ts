@@ -60,16 +60,13 @@ function convertToProjectModel(item: any): Project {
 const projectAPI = {
   // get(page = 1, limit = 20) {
     // return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
-  // get() {
-  //   return fetch(`${url}`, { headers:{
-  //     authorization: authHeader()
-  //   } 
-  get() {
-    return fetch(`${url}`, { headers: {
+ 
+  get(page = 1, limit = 6) {
+    return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`, { headers: {
       Authorization: authHeader()
     }
   })
-      .then(delay(600))
+      .then(delay(300))
       .then(checkStatus)
       .then(parseJSON)
       .then(convertToProjectModels)

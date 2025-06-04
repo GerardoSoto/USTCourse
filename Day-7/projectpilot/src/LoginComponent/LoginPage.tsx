@@ -26,11 +26,11 @@ function LoginPage({ onLoginSuccess, onLoginError }: LoginProps) {
       if (response instanceof Auth)
         onLoginSuccess(response);
       else
-        if (response instanceof LoginErroMessage){
+        if (response instanceof LoginErroMessage) {
           setErrorMessage(response.message);
           onLoginError(response.message)
         }
-          
+
     } catch (error) {
       setErrorMessage(error as string);
       onLoginError(error as string);
@@ -41,14 +41,12 @@ function LoginPage({ onLoginSuccess, onLoginError }: LoginProps) {
 
 
   return (
-
-
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Email/Username:</label>
           <input
             type="text"
             id="username"

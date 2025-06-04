@@ -116,7 +116,7 @@ function App() {
           <Route path="/projects/:id" element={<ProjectPage />} />
           <Route path="/project" element={<NewProjectPage />} />
           <Route path="/login" element={<LoginPage onLoginSuccess={handleLoginSuccess} onLoginError={handleLoginError} />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register" element={<RegisterPage onLoginSuccess={handleLoginSuccess} onLoginError={handleLoginError} />} />
         </Routes>
       </div>
     </>

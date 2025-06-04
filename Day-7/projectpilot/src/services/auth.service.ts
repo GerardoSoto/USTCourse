@@ -88,7 +88,28 @@ const authServiceAPI = {
     localStorage.removeItem("user");
     
   },
-  register(){
+  register(name:string, email:string, password:string){
+    return fetch(`${API_URL}/signup`,{
+      method:'post',
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(checkStatus)    
+    .then(parseJSON)
+    .then(convertToAuthtModel)
+    .then(saveToLocalStorage)
+    .catch((error: TypeError) => {
+        console.log('log client error ' + error);
+        throw new Error(
+          'There was an error to register. Please try again.'
+        );
+      });
 
   },
   getCurrentUser(){
