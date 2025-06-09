@@ -7,14 +7,16 @@ services:
   # app service for your backend
   app:
     container_name: backend_API
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: jerry2311x/nestjs-backend-api-test
+    # build:
+    #   context: ./
+    #   dockerfile: Dockerfile
     environment:
-      DATABASE_NAME : DATABASE_USERS_TEST
-      DATABASE_USER : 
-      DATABASE_PASS : 
-      DATABASE_URI : mongodb://localhost/nest
+      DATABASE_NAME : DATABASE_USERS_TEST_2
+      # DATABASE_USER : admin
+      # DATABASE_PASS : admin
+      DATABASE_URI : mongodb://host.docker.internal:27017/users_test_2
+      
     ports:
       - '4000:4000'
     depends_on:
@@ -28,5 +30,5 @@ services:
     ports:
       - '27017:27017'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: DATABASE_USERS_TEST
-      MONGO_INITDB_ROOT_PASSWORD: # DATABASE_USER
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
